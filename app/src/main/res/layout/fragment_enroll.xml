@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EnrollFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/addUser"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+        <ImageButton
+            android:id="@+id/imageToUpload"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Select Profile Photo"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/firstName"
+            android:hint="First Name"
+            android:background="@drawable/drawable_back"
+
+            />
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lastName"
+            android:hint="Last Name"
+            android:background="@drawable/drawable_back"
+            />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gender"
+            android:hint="Gender"
+            android:background="@drawable/drawable_back"
+            />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/age"
+            android:hint="Age"
+            android:background="@drawable/drawable_back"
+            />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/country"
+            android:hint="Country"
+            android:background="@drawable/drawable_back"
+            />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/state"
+            android:hint="State"
+            android:background="@drawable/drawable_back"
+            />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/hometown"
+            android:hint="Home Town"
+            android:background="@drawable/drawable_back"
+            />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/phoneNumber"
+            android:hint="Phone Number"
+            android:background="@drawable/drawable_back"
+            />
+        <EditText
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/telephone"
+            android:hint="Telephone Number"
+            android:background="@drawable/drawable_back"
+            />
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/addUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:descendantFocusability="beforeDescendants"
+        android:fitsSystemWindows="true"
+        android:text="ADD USER"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_view"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

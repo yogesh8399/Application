@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imgView"
+            android:background="@drawable/cicular"
+
+            android:src="@mipmap/ic_launcher"
+            />
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:paddingLeft="5dp"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fName"
+                    android:text="Name"
+                    android:textStyle="bold"
+                    android:textSize="24dp"/>
+
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lName"
+                    android:text="LName"
+                    android:textStyle="bold"
+                    android:textSize="24dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/gender1"
+                    android:textSize="15dp"
+                    android:text="gender"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="  |  "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/age1"
+                    android:textSize="15dp"
+                    android:text="age"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="  |  "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/country1"
+                    android:textSize="15dp"
+                    android:text="country"/>
+            </LinearLayout>
+        </LinearLayout>
+        <ImageButton
+            android:layout_marginTop="27dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete"
+            android:src="@drawable/ic_baseline_delete_24"/>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
+
+
