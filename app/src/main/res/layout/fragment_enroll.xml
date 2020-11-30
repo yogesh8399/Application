@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/gender"
-            android:hint="Gender"
+            android:hint="Gender                      male | female"
             android:background="@drawable/drawable_back"
             />
         <EditText
@@ -133,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/phoneNumber"
-            android:hint="Phone Number"
+            android:hint="Phone Number               |10 digits|"
             android:background="@drawable/drawable_back"
             />
         <EditText
@@ -145,7 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/telephone"
-            android:hint="Telephone Number"
+            android:hint="Telephone Number        |10 digits|"
             android:background="@drawable/drawable_back"
             />
 

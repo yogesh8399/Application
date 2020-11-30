@@ -8,7 +8,9 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -28,8 +31,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -37,16 +46,20 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.net.URI;
+import java.util.Objects;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
 
 
 public class EnrollFragment extends Fragment {
 
 
     private View enrollview;
+    StorageReference ref;
     ImageButton imgButton;
     private Button btnUpload;
     public static final int RESULT_LOAD_IMAGE = 1;
@@ -60,13 +73,14 @@ public class EnrollFragment extends Fragment {
     private EditText firstName;
     private EditText Age;
     private EditText lastName;
-    private EditText gender;
+    private  EditText gender;
     private EditText country;
     private EditText state;
     private EditText phoneNumber;
     private EditText telephoneNumber;
     member Member;
-    //private static int k=0;
+    private static String downUrl;
+    private static int k=99;
 
     public EnrollFragment() {
 
@@ -121,13 +135,12 @@ public class EnrollFragment extends Fragment {
                 public void onClick(View v) {
 
 
-                    uploadData();
-                    uploadImage();
-                   /* if(filePath!=null) {
-                        uploadImage();
+                   if(filePath!=null && checkCredentials()==1) {
+                       uploadImage();
+                       uploadData();
                     }
                     else
-                        Toast.makeText(getActivity(),"Select profile photo",Toast.LENGTH_SHORT).show();*/
+                        Toast.makeText(getActivity(),"Select profile photo",Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -156,54 +169,70 @@ public class EnrollFragment extends Fragment {
         if (filePath != null) {
 
 
+            final Uri mImage = filePath;
 
-            // Defining the child of storageReference
-            StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
 
-            ref.putFile(filePath);
-
+            //uploading the image
+            ref = storageReference.child("images/" + UUID.randomUUID().toString());
+            UploadTask uploadTask = ref.putFile(filePath);
+            UploadTask.TaskSnapshot taskSnapshot = uploadTask.getSnapshot();
+            //add file on Firebase and got Download Link
+            ref.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return ref.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downUri = task.getResult();
+                        downUrl = downUri.toString();
+                        Log.d(TAG, "onComplete: Url: " + downUrl);
+                    }
+                }
+            });
         }
 }
-
-       public void uploadData() {
-        int ph=Integer.parseInt(phoneNumber.getText().toString().trim());
-        int tph=Integer.parseInt(telephoneNumber.getText().toString().trim());
-           int age=Integer.parseInt(Age.getText().toString().trim());
-        String fName = firstName.getText().toString().trim();
-        String lName = lastName.getText().toString().trim();
-        String s = state.getText().toString().trim();
-        String c = country.getText().toString().trim();
-        String g = gender.getText().toString().trim();
-        Member.setFname(firstName.getText().toString().trim());
-           Member.setLname(lastName.getText().toString().trim());
-           Member.setGender(gender.getText().toString().trim());
-           Member.setCountry(country.getText().toString().trim());
-           Member.setUrl(filePath.toString()+".jpeg");
-           Member.setAge(age);
-           reff.child("user1").setValue(Member);
-           Toast.makeText(getActivity(),"Data is uploading",Toast.LENGTH_SHORT).show();
-
-        /*if(ph==tph)
+public int checkCredentials(){
+    int ph=Integer.parseInt(phoneNumber.getText().toString().trim());
+    int tph=Integer.parseInt(telephoneNumber.getText().toString().trim());
+    int age=Integer.parseInt(Age.getText().toString().trim());
+    String fName = firstName.getText().toString().trim();
+    String lName = lastName.getText().toString().trim();
+    String s = state.getText().toString().trim();
+    String c = country.getText().toString().trim();
+    String g = gender.getText().toString().trim();
+    if(ph==tph)
         {
             Toast.makeText(getActivity(),"Both Numbers must be different",Toast.LENGTH_SHORT).show();
             return 0;
         }
         else
         {
-            if(countDigit(ph)==10 && countDigit(tph)==10 && (g.toLowerCase()=="male" || g.toLowerCase()=="female")&& fName!=null && lName!=null && s!=null && c!=null)
-            {
-                    Toast.makeText(getActivity(),"Data is uploading",Toast.LENGTH_SHORT).show();
-                return 1;
+            return 1;
 
-            }
+        }
 
-            else {
-                Toast.makeText(getActivity(), "Please enter valid credentials", Toast.LENGTH_SHORT).show();
-                return 0;
 
-            }
+}
 
-        }*/
+public void uploadData() {
+
+
+           int age2=Integer.parseInt(Age.getText().toString().trim());
+           Member.setFname(firstName.getText().toString().trim());
+           Member.setLname(lastName.getText().toString().trim());
+           Member.setGender(gender.getText().toString().trim());
+           Member.setCountry(country.getText().toString().trim());
+           Member.setUrl(downUrl);
+           Member.setAge(age2);
+           reff.child("user"+ k--).setValue(Member);
+           Toast.makeText(getActivity(),"Data is uploading",Toast.LENGTH_SHORT).show();
+
 
 
     }
@@ -227,4 +256,5 @@ public class EnrollFragment extends Fragment {
 
 
 }
+
 
